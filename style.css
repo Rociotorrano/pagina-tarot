@@ -362,6 +362,9 @@ body::before {
     margin-top: auto;
 }
 
+/* .sparkle-icon::after removed */
+
+
 .badge-featured {
     background: var(--grad-badge);
     color: #000;
