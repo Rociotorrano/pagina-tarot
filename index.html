@@ -383,6 +383,42 @@ Permítete sumergirte en la magia de esta experiencia, donde cada pregunta que r
         </div>
     </div>
 
+    <!-- Contact Form Modal -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content" style="max-width: 500px;">
+            <button class="modal-close contact-close">&times;</button>
+            <div class="modal-info" style="padding: 2.5rem;">
+                <h3 style="margin-bottom: 0.5rem; color: var(--clr-accent);">Solicitud de Servicio</h3>
+                <p style="margin-bottom: 2rem; font-size: 0.95rem; color: var(--clr-text-muted);">Completa tus datos para enviarle la solicitud a Cecilia.</p>
+                
+                <form id="whatsapp-form" class="contact-form">
+                    <input type="hidden" id="form-service-name" value="">
+                    
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="first-name" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Nombre</label>
+                        <input type="text" id="first-name" required placeholder="Tu nombre" 
+                            style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #eee; background: #fafafa;">
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="last-name" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Apellido</label>
+                        <input type="text" id="last-name" required placeholder="Tu apellido" 
+                            style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #eee; background: #fafafa;">
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 2rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Servicio seleccionado</label>
+                        <input type="text" id="display-service" disabled 
+                            style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #e0e0e0; background: #f0f0f0; color: #666;">
+                    </div>
+                    
+                    <button type="submit" class="btn-main" style="width: 100%;">Enviar Mensaje a WhatsApp</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 

@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modalType.textContent = data.type;
         modalDesc.innerHTML = `<p>${data.short}</p><p style="margin-top: 1rem;">${data.long}</p>`;
         modalPrice.textContent = data.price;
-        modalCta.href = data.link;
+        modalCta.href = "#";
 
         modal.classList.add('active');
         document.body.style.overflow = 'hidden'; // Prevent scroll
@@ -161,14 +161,77 @@ document.addEventListener('DOMContentLoaded', () => {
         card.style.cursor = 'pointer';
     });
 
-    // Close Events
+    // --- Contact Form Modal Logic ---
+    const contactModal = document.getElementById('contact-modal');
+    const contactClose = document.querySelector('.contact-close');
+    const whatsappForm = document.getElementById('whatsapp-form');
+    const serviceInput = document.getElementById('form-service-name');
+    const displayService = document.getElementById('display-service');
+
+    const openContactModal = (serviceName) => {
+        serviceInput.value = serviceName;
+        displayService.value = serviceName;
+        contactModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeContactModal = () => {
+        contactModal.classList.remove('active');
+        if (!modal.classList.contains('active')) {
+            document.body.style.overflow = '';
+        }
+    };
+
+    // Update the CTA in the first modal to open the contact form
+    modalCta.addEventListener('click', (e) => {
+        e.preventDefault();
+        const serviceName = modalTitle.textContent;
+        openContactModal(serviceName);
+    });
+
+    // Handle form submission
+    whatsappForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const firstName = document.getElementById('first-name').value;
+        const lastName = document.getElementById('last-name').value;
+        const service = serviceInput.value;
+        
+        const message = `Hola Cecilia! Mi nombre es ${firstName} ${lastName} y me gustaría solicitar el servicio: ${service}`;
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/5491155990903?text=${encodedMessage}`;
+        
+        window.open(whatsappUrl, '_blank');
+        closeContactModal();
+        closeModal(); // Also close the main modal
+        whatsappForm.reset();
+    });
+
+    // External buttons (like Sana tu Ser)
+    document.querySelectorAll('.btn-main').forEach(btn => {
+        if (!btn.closest('.modal')) {
+            btn.addEventListener('click', (e) => {
+                if (btn.getAttribute('href') && btn.getAttribute('href').includes('wa.me')) {
+                    e.preventDefault();
+                    let serviceName = "Consulta General";
+                    const programTitle = btn.closest('.program-info')?.querySelector('h2')?.textContent;
+                    if (programTitle) serviceName = programTitle.trim();
+                    
+                    openContactModal(serviceName);
+                }
+            });
+        }
+    });
+
     closeBtn.addEventListener('click', closeModal);
     backdrop.addEventListener('click', closeModal);
-    
+    contactClose.addEventListener('click', closeContactModal);
+    contactModal.querySelector('.modal-backdrop').addEventListener('click', closeContactModal);
+
     // ESC key close
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
+        if (e.key === 'Escape') {
             closeModal();
+            closeContactModal();
         }
     });
 });
